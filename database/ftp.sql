@@ -35,13 +35,6 @@ CREATE TABLE `files` (
   `id_user` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Extraindo dados da tabela `files`
---
-
-INSERT INTO `files` (`id`, `name`, `path`, `id_user`) VALUES
-(1, 'Zoom.exe', 'D:xampphtdocsopenftpfilesZoom.exe', 1);
-
 -- --------------------------------------------------------
 
 --
@@ -54,19 +47,6 @@ CREATE TABLE `users` (
   `passwords` varchar(255) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Extraindo dados da tabela `users`
---
-
-INSERT INTO `users` (`id`, `username`, `passwords`, `email`) VALUES
-(1, ' admin', '21232f297a57a5a743894a0e4a801fc3', 'admin@admin.com'),
-(2, ' guest', '202cb962ac59075b964b07152d234b70', 'guest@guest.com'),
-(3, ' emanuel', 'a80e1c212420901edde8bbeb64037593', 'warlopess@gmail.com'),
-(4, ' luis', '81dc9bdb52d04dc20036dbd8313ed055', 'luis@gmail.com'),
-(5, ' ruan', 'e10adc3949ba59abbe56e057f20f883e', 'ruan@gmail.com'),
-(6, ' luan', 'e10adc3949ba59abbe56e057f20f883e', 'luan@gmail.com'),
-(7, ' justin', '53dd9c6005f3cdfc5a69c5c07388016d', 'justin@gmail.com');
 
 --
 -- Índices para tabelas despejadas

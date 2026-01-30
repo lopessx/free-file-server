@@ -1,12 +1,14 @@
-*{
+* {
     margin: 0px;
     padding: 0px;
 }
-body{
+
+body {
     font-size: 120%;
     background: #ADD8E6;
 }
-.header{
+
+.header {
     width: 30%;
     margin: 50px auto 0px;
     color: white;
@@ -17,7 +19,8 @@ body{
     border-radius: 10px 10px 0px 0px;
     padding: 20px;
 }
-form, .content{
+
+form, .content {
     width: 30%;
     margin: 0px auto;
     padding: 20px;
@@ -25,15 +28,18 @@ form, .content{
     background: #E0FFFF;
     border-radius: 0px 0px 10px 10px;
 }
-.input-group{
+
+.input-group {
     margin: 10px 0px 10px 0px;
 }
-.input-group label{
+
+.input-group label {
     display: block;
     text-align: left;
     margin: 3px;
 }
-.input-group input{
+
+.input-group input {
     height: 30px;
     width: 93%;
     padding: 5px 10px;
@@ -41,6 +47,7 @@ form, .content{
     border-radius: 5px;
     border: 1px solid gray;
 }
+
 .btn {
     padding: 10px;
     font-size: 15px;
@@ -52,7 +59,7 @@ form, .content{
 
 }
 
-.error{
+.error {
     width: 92%;
     margin: 0px auto;
     padding: 10px;
@@ -63,7 +70,7 @@ form, .content{
     text-align: left;
 }
 
-.success{
+.success {
     color: #3c763d;
     background: #dff0d8;
     border: 1px solid #3c763d;
@@ -77,10 +84,10 @@ form, .content{
     padding: 10px;
     background: #E0FFFF;
     text-align: center;
-    
+
 }
 
-.footer{
+.footer {
     width: 30%;
     margin: 5px auto 0px;
     color: white;
@@ -92,7 +99,7 @@ form, .content{
     padding: 20px;
 }
 
-.submit{
+.submit {
     margin: 5px;
     padding: 10px;
     font-size: 15px;
@@ -101,13 +108,15 @@ form, .content{
     background: #5F9EA0;
     border: none;
     border-radius: 5px;
-    
+
 }
-.file_id{
+
+.file_id {
     opacity: 0;
     float: none;
 }
-.img{
+
+.img {
     float: left;
-    
+
 }
