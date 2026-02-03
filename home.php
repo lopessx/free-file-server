@@ -78,7 +78,7 @@ $con = mysqli_query($db, $sql);
             <tr>
                 <td> <?php echo $dado["id"];?>
                 </td>
-                <td><a href="files/<?php echo $dado["name"];?>"
+                <td><a href="<?php echo UPLOAD_DIR . '/' . $dado["name"];?>"
                         download="<?php echo $dado["name"];?>">
                         <?php echo $dado["name"];?>
                     </a></td>

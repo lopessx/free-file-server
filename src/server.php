@@ -5,7 +5,7 @@ $username = " ";
 $email = "";
 $errors = [];
 //Conexão com o banco de dados
-$db = mysqli_connect('localhost', 'root', '', 'ftp');
+$db = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 
 //Quando o botão de registro for clicado
 if (isset($_POST['register'])) {
@@ -15,7 +15,7 @@ if (isset($_POST['register'])) {
     $password_1 = mysqli_real_escape_string($db, $_POST['password_1']);
     $password_2 = mysqli_real_escape_string($db, $_POST['password_2']);
     //É necessário selecionar o banco antes de executar um comando
-    mysqli_select_db($db, 'ftp');
+    mysqli_select_db($db, DB_NAME);
     //Verificação para não fazer cadastro duplicado
     $sql = "SELECT * FROM `users` WHERE email='$email'";
     $con = mysqli_query($db, $sql);
@@ -49,7 +49,7 @@ if (isset($_POST['register'])) {
     if (count($errors) == 0) {
 
         //É necessário selecionar o banco antes de executar um comando
-        mysqli_select_db($db, 'ftp');
+        mysqli_select_db($db, DB_NAME);
         $password = md5($password_1);//Criptografar a senha antes de guardar no banco
         //Comando de inserção no banco
         $sql = "INSERT INTO users (username, passwords, email) VALUES ('$username','$password','$email') ";
@@ -83,7 +83,7 @@ if (isset($_POST['login'])) {
     if (count($errors) == 0) {
         $password = md5($password); //Criptografa a senha digitada para comparar no banco de dados
         $query = "SELECT * FROM users WHERE email='$email' AND passwords='$password'";
-        mysqli_select_db($db, 'ftp');
+        mysqli_select_db($db, DB_NAME);
         $result = mysqli_query($db, $query);
 
         if (mysqli_num_rows($result) == 1) {
@@ -132,7 +132,7 @@ if (isset($_POST['submit'])) {
         $id = $_SESSION['id'];
         //Inserção do nome e do caminho no banco
         $sql = "INSERT INTO `files` (name,path,id_user) VALUES ('$file','$path','$id')";
-        mysqli_select_db($db, 'ftp');
+        mysqli_select_db($db, DB_NAME);
         mysqli_query($db, $sql);
     }
 
@@ -143,7 +143,7 @@ if (isset($_POST['submit'])) {
 if (isset($_GET['excluir'])) {
     $cod_arquivo = $_GET['excluir'];
     $sql = "DELETE FROM `files` WHERE `files`.`id` = '$cod_arquivo'";
-    mysqli_select_db($db, 'ftp');
+    mysqli_select_db($db, DB_NAME);
     mysqli_query($db, $sql);
 
 }
@@ -173,7 +173,7 @@ if (isset($_POST['confirmar'])) {
     if (count($errors) == 0) {
         rename($path, $path_novo);
         $sql = "UPDATE `files` SET name='$nome_arquivo' WHERE `files`.`id` = '$cod_arquivo'";
-        mysqli_select_db($db, 'ftp');
+        mysqli_select_db($db, DB_NAME);
         mysqli_query($db, $sql);
 
         $sql = "UPDATE `files` SET path='$path_novo' WHERE `files`.`id` = '$cod_arquivo'";
