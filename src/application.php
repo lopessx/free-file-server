@@ -9,8 +9,38 @@ route_project();
 $currentFile = basename(str_replace('\\', '/', $_SERVER['SCRIPT_NAME'] ?? ''));
 
 if (setup_project && $currentFile !== 'setup.php') {
-    header('Location: setup.php');
-    exit;
+    mysqli_report(MYSQLI_REPORT_OFF);
+    $setupDatabase = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+    $schemaComplete = false;
+    if ($setupDatabase !== false) {
+        mysqli_set_charset($setupDatabase, DB_CHARSET);
+        $requiredTablesAndColumns = [
+            'users' => ['id', 'username', 'password_hash', 'password_salt', 'email', 'last_login', 'created_at', 'updated_at'],
+            'files' => ['id', 'filename', 'path', 'user_id', 'created_at', 'updated_at']
+        ];
+        $schemaComplete = true;
+        foreach ($requiredTablesAndColumns as $table => $columns) {
+            $tableEscaped = mysqli_real_escape_string($setupDatabase, $table);
+            $tableResult = mysqli_query($setupDatabase, "SHOW TABLES LIKE '$tableEscaped'");
+            if (!$tableResult || mysqli_num_rows($tableResult) !== 1) {
+                $schemaComplete = false;
+                break;
+            }
+            foreach ($columns as $column) {
+                $columnEscaped = mysqli_real_escape_string($setupDatabase, $column);
+                $columnResult = mysqli_query($setupDatabase, "SHOW COLUMNS FROM `$tableEscaped` LIKE '$columnEscaped'");
+                if (!$columnResult || mysqli_num_rows($columnResult) !== 1) {
+                    $schemaComplete = false;
+                    break 2;
+                }
+            }
+        }
+        mysqli_close($setupDatabase);
+    }
+    if (!$schemaComplete) {
+        header('Location: setup.php');
+        exit;
+    }
 }
 
 if (session_status() !== PHP_SESSION_ACTIVE) {
@@ -107,6 +137,10 @@ if (isset($_GET['logout'])) {
 }
 
 if (isset($_POST['register'])) {
+    if (!ALLOW_REGISTRATION) {
+        $errors[] = 'New user registration is disabled';
+    }
+
     $username = trim((string)($_POST['username'] ?? ''));
     $email = strtolower(trim((string)($_POST['email'] ?? '')));
     $password = (string)($_POST['password'] ?? '');

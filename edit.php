@@ -16,13 +16,15 @@ if ($file_id !== false) {
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>OPEN FTP</title>
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="shortcut icon" href="thumbnails/openftplogo.ico" type="image/x-icon">
 </head>
 <body>
     <div class="header">
-        <img src="thumbnails/openftplogo.png" alt="OPENFTP logo" width="50" height="50" class="logo">
+        <img src="thumbnails/openftplogo.webp" alt="OPENFTP logo" class="logo">
         <h2>Edit File</h2>
     </div>
     <form method="post" action="dashboard.php">

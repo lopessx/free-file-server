@@ -1,14 +1,41 @@
-<?php include('src/application.php'); ?>
+<?php
+require_once __DIR__ . '/config.php';
+if (!ALLOW_REGISTRATION) {
+    http_response_code(403);
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Registration disabled</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+    <div class="header"><h2>Registration disabled</h2></div>
+    <main class="content">
+        <p>New user registration is currently disabled.</p>
+        <p><a href="index.php">Return to login</a></p>
+    </main>
+</body>
+</html>
+<?php
+    exit;
+}
+include('src/application.php');
+?>
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>OPEN FTP</title>
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="shortcut icon" href="thumbnails/openftplogo.ico" type="image/x-icon">
 </head>
 <body>
     <div class="header">
-        <img src="thumbnails/openftplogo.png" alt="OPENFTP logo" width="50" height="50" class="logo">
+        <img src="thumbnails/openftplogo.webp" alt="OPENFTP logo" class="logo">
         <h2>Register</h2>
     </div>
     <form method="post" action="register.php">

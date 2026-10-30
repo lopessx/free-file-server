@@ -1,12 +1,13 @@
 <?php
 
 // Database configuration
-define('DB_HOST', 'localhost');
-define('DB_NAME', 'free_file_server');
-define('DB_USER', 'root');
-define('DB_PASS', 'your_secure_password');
-define('DB_CHARSET', 'utf8mb4');
-define('setup_project', true);
+define('DB_HOST', getenv('DB_HOST') ?: 'localhost');
+define('DB_NAME', getenv('DB_NAME') ?: 'free_file_server');
+define('DB_USER', getenv('DB_USER') ?: 'root');
+define('DB_PASS', getenv('DB_PASS') ?: 'your_secure_password');
+define('DB_CHARSET', getenv('DB_CHARSET') ?: 'utf8mb4');
+define('setup_project', filter_var(getenv('SETUP_PROJECT') ?: 'false', FILTER_VALIDATE_BOOLEAN));
+define('ALLOW_REGISTRATION', filter_var(getenv('ALLOW_REGISTRATION') ?: 'true', FILTER_VALIDATE_BOOLEAN));
 
 // Session configuration (7200 seconds = 2 hours)
 define('session_timeout', 7200);

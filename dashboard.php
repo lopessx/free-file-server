@@ -10,13 +10,15 @@ $result = mysqli_stmt_get_result($statement);
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>OPEN FTP</title>
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="shortcut icon" href="thumbnails/openftplogo.ico" type="image/x-icon">
 </head>
 <body>
     <div class="header">
-        <img src="thumbnails/openftplogo.png" alt="OPENFTP logo" width="50" height="50" class="logo">
+        <img src="thumbnails/openftplogo.webp" alt="OPENFTP logo" class="logo">
         <h2>Dashboard</h2>
     </div>
 
@@ -27,9 +29,10 @@ $result = mysqli_stmt_get_result($statement);
         </div>
         <?php endif ?>
         <?php if (isset($_SESSION['username'])): ?>
-        <p>Welcome
+        <p class="welcome-row"><span>Welcome
             <strong><?php echo htmlspecialchars($_SESSION['username']); ?></strong>
-            <a href="dashboard.php?logout=1" style="color: red; margin-left: 50%; font-weight: bolder;">Logout</a>
+            </span>
+            <a class="logout-link" href="dashboard.php?logout=1">Logout</a>
         </p>
         <?php endif ?>
     </div>

@@ -17,6 +17,44 @@ OpenFTP is a lightweight, user-oriented file server written in PHP. It provides 
 - Apache-friendly routes and a custom 404 page
 - Guided database setup through a browser-based installer
 
+## Docker Compose
+
+The application and a MySQL database can be run with Docker Compose:
+
+```bash
+git clone https://github.com/lopessx/free-file-server.git
+cd free-file-server
+docker compose up --build -d
+```
+
+Open <http://localhost:8080>. The Compose setup creates the `users` and `files` tables automatically.
+
+To use custom database credentials or a different host port, create a `.env` file or export the variables before starting Compose:
+
+```dotenv
+MYSQL_ROOT_PASSWORD=change-this-root-password
+MYSQL_DATABASE=free_file_server
+MYSQL_USER=free_file_server
+MYSQL_PASSWORD=change-this-database-password
+APP_PORT=8080
+```
+
+Then start the containers:
+
+```bash
+docker compose up --build -d
+```
+
+Useful Docker commands:
+
+```bash
+docker compose logs -f application
+docker compose down
+docker compose down -v # Also deletes the database and uploaded-file volumes
+```
+
+The Compose services use `mysql:latest`, keep MySQL data in the `mysql_data` volume, and keep uploaded files in the `uploaded_files` volume.
+
 ## Requirements
 
 - PHP 8.1 or newer
@@ -44,6 +82,7 @@ define('DB_NAME', 'free_file_server');
 define('DB_USER', 'your_database_user');
 define('DB_PASS', 'your_secure_password');
 define('setup_project', true);
+define('ALLOW_REGISTRATION', true);
    ```
 
 3. Ensure Apache has permissions to write the application files needed by setup and the uploaded-file directory:
@@ -115,6 +154,8 @@ thumbnails/            Images and application branding
 
 - Set a strong database password and do not commit real credentials.
 - Keep `setup_project` set to `false` after installation.
+- Setup is automatically blocked once the required database tables and columns exist.
+- Set `ALLOW_REGISTRATION` to `false` (or `ALLOW_REGISTRATION=false` in Docker) to disable new accounts.
 - Serve the application over HTTPS in production.
 - Give Apache only the permissions necessary for uploading files.
 - Restrict access to `config.php` and database backups at the web-server layer.

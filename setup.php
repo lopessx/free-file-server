@@ -4,6 +4,49 @@ require_once __DIR__ . '/config.php';
 $message = '';
 $error = '';
 
+function database_schema_is_complete(): bool
+{
+    mysqli_report(MYSQLI_REPORT_OFF);
+    $connection = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+    if ($connection === false) {
+        return false;
+    }
+    mysqli_set_charset($connection, DB_CHARSET);
+
+    $requiredColumns = [
+        'users' => ['id', 'username', 'password_hash', 'password_salt', 'email', 'last_login', 'created_at', 'updated_at'],
+        'files' => ['id', 'filename', 'path', 'user_id', 'created_at', 'updated_at']
+    ];
+
+    foreach ($requiredColumns as $table => $columns) {
+        $tableEscaped = mysqli_real_escape_string($connection, $table);
+        $result = mysqli_query($connection, "SHOW TABLES LIKE '$tableEscaped'");
+        if (!$result || mysqli_num_rows($result) !== 1) {
+            mysqli_close($connection);
+            return false;
+        }
+
+        foreach ($columns as $column) {
+            $columnEscaped = mysqli_real_escape_string($connection, $column);
+            $columnResult = mysqli_query($connection, "SHOW COLUMNS FROM `$tableEscaped` LIKE '$columnEscaped'");
+            if (!$columnResult || mysqli_num_rows($columnResult) !== 1) {
+                mysqli_close($connection);
+                return false;
+            }
+        }
+    }
+
+    mysqli_close($connection);
+    return true;
+}
+
+if (database_schema_is_complete()) {
+    http_response_code(404);
+    header('Content-Type: text/plain; charset=utf-8');
+    echo 'Not Found';
+    exit;
+}
+
 function database_connection(bool $includeDatabase = true): mysqli|false
 {
     mysqli_report(MYSQLI_REPORT_OFF);
@@ -121,6 +164,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html lang="en">
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Project Setup</title>
     <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
@@ -132,7 +176,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <p>Database connection details are read from <strong>config.php</strong>.</p>
         <?php if ($message !== ''): ?><div class="error success"><?php echo $message; ?></div><?php endif; ?>
         <?php if ($error !== ''): ?><div class="error"><?php echo $error; ?></div><?php endif; ?>
-        <form method="post">
+        <form method="post" class="setup-actions">
             <button type="submit" name="test_connection" class="button">Test Database Connection</button>
             <button type="submit" name="install" class="button">Install</button>
         </form>

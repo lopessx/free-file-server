@@ -1,6 +1,6 @@
 * {
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
 }
 
 body {
@@ -10,102 +10,110 @@ body {
 
 .header {
     width: 30%;
-    margin: 50px auto 0px;
+    margin: 3.125rem auto 0;
     color: white;
     background: #5F9EA0;
     text-align: center;
-    border: 1px solid #B0C4DE;
+    border: .0625rem solid #B0C4DE;
     border-bottom: none;
-    border-radius: 10px 10px 0px 0px;
-    padding: 20px;
+    border-radius: .625rem .625rem 0 0;
+    padding: 1.25rem;
 }
 
 form, .content {
     width: 30%;
-    margin: 0px auto;
-    padding: 20px;
-    border: 1px solid #b0c4de;
+    margin: 0 auto;
+    padding: 1.25rem;
+    border: .0625rem solid #b0c4de;
     background: #E0FFFF;
-    border-radius: 0px 0px 10px 10px;
+    border-radius: 0 0 .625rem .625rem;
 }
 
 .input-group {
-    margin: 10px 0px 10px 0px;
+    margin: .625rem 0;
 }
 
 .input-group label {
     display: block;
     text-align: left;
-    margin: 3px;
+    margin: .1875rem;
 }
 
 .input-group input {
-    height: 30px;
+    height: 1.875rem;
     width: 93%;
-    padding: 5px 10px;
-    font-size: 16px;
-    border-radius: 5px;
-    border: 1px solid gray;
+    padding: .3125rem .625rem;
+    font-size: 1rem;
+    border-radius: .3125rem;
+    border: .0625rem solid gray;
 }
 
 .button {
-    padding: 10px;
-    font-size: 15px;
+    padding: .625rem;
+    font-size: .9375rem;
     font-weight: bolder;
     color: white;
     background: #5F9EA0;
     border: none;
-    border-radius: 5px;
+    border-radius: .3125rem;
+}
+
+.button,
+.upload-button[type="submit"] {
+    display: block;
+    width: 100%;
+    min-height: 2.75rem;
+    margin: .5rem 0;
 }
 
 .error {
     width: 92%;
-    margin: 0px auto;
-    padding: 10px;
-    border: 1px solid #a94442;
+    margin: 0 auto;
+    padding: .625rem;
+    border: .0625rem solid #a94442;
     color: #a94442;
     background: #f2dede;
-    border-radius: 5px;
+    border-radius: .3125rem;
     text-align: left;
 }
 
 .success {
     color: #3c763d;
     background: #dff0d8;
-    border: 1px solid #3c763d;
-    margin-bottom: 20px;
+    border: .0625rem solid #3c763d;
+    margin-bottom: 1.25rem;
 }
 
 .table {
     width: fit-content;
     margin-left: auto;
     margin-right: auto;
-    padding: 10px;
+    padding: .625rem;
     background: #E0FFFF;
     text-align: center;
 }
 
 .footer {
     width: 30%;
-    margin: 5px auto 0px;
+    margin: .3125rem auto 0;
     color: white;
     background: #5F9EA0;
     text-align: center;
-    border: 1px solid #B0C4DE;
+    border: .0625rem solid #B0C4DE;
     border-bottom: none;
-    border-radius: 10px 10px 0px 0px;
-    padding: 20px;
+    border-radius: .625rem .625rem 0 0;
+    padding: 1.25rem;
 }
 
 .upload-button {
-    margin: 5px;
-    padding: 10px;
-    font-size: 15px;
+    margin: .3125rem;
+    padding: .625rem;
+    font-size: .9375rem;
     font-weight: bolder;
     color: white;
     background: #5F9EA0;
     border: none;
-    border-radius: 5px;
+    border-radius: .3125rem;
 }
 
 .hidden-file-id {
@@ -126,18 +134,18 @@ html {
 }
 
 body {
-    min-width: 320px;
+    min-width: 20rem;
 }
 
 .header,
 form,
 .content,
 .footer {
-    max-width: 960px;
+    max-width: 60rem;
 }
 
 .header {
-    min-height: 90px;
+    min-height: 5.625rem;
 }
 
 .header h2 {
@@ -146,7 +154,7 @@ form,
 
 .upload {
     width: 30%;
-    margin: 5px auto;
+    margin: .3125rem auto;
 }
 
 .upload form {
@@ -155,12 +163,12 @@ form,
 
 .view {
     width: 100%;
-    padding: 10px;
+    padding: .625rem;
     overflow-x: auto;
 }
 
 .table {
-    min-width: 640px;
+    min-width: 40rem;
 }
 
 .input-group input {
@@ -168,24 +176,71 @@ form,
 }
 
 .logo {
-    width: 50px;
-    height: 50px;
+    width: 3.125rem;
+    height: 3.125rem;
 }
 
-@media (max-width: 900px) {
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .75rem;
+}
+
+.header .logo {
+    float: none;
+    flex: 0 0 auto;
+}
+
+.setup-actions {
+    width: 100%;
+    margin: .75rem 0 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    border-radius: 0;
+}
+
+.upload-button {
+    width: 100%;
+}
+
+.upload input[type="file"] {
+    display: block;
+    width: 100%;
+    margin: .5rem 0;
+}
+
+.welcome-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: .75rem;
+    line-height: 1.5;
+}
+
+.logout-link {
+    display: inline-block;
+    flex: 0 0 auto;
+    margin-left: .75rem;
+    color: red;
+    font-weight: bolder;
+}
+
+@media (max-width: 56.25em) {
     .header,
     form,
     .content,
     .footer,
     .upload {
-        width: calc(100% - 32px);
-        max-width: 680px;
+        width: calc(100% - 2rem);
+        max-width: 42.5rem;
         margin-left: auto;
         margin-right: auto;
     }
 
     .header {
-        margin-top: 24px;
+        margin-top: 1.5rem;
     }
 
     .header,
@@ -193,8 +248,8 @@ form,
     .content,
     .footer,
     .upload {
-        padding-left: 16px;
-        padding-right: 16px;
+        padding-left: 1rem;
+        padding-right: 1rem;
     }
 
     .input-group input {
@@ -207,7 +262,7 @@ form,
     }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 37.5em) {
     body {
         font-size: 100%;
     }
@@ -217,40 +272,46 @@ form,
     .content,
     .footer,
     .upload {
-        width: calc(100% - 20px);
-        border-radius: 8px;
+        width: calc(100% - 1.25rem);
+        border-radius: .5rem;
     }
 
     .header {
-        min-height: 72px;
-        margin-top: 10px;
-        padding-top: 12px;
-        padding-bottom: 12px;
+        min-height: 4.5rem;
+        margin-top: .625rem;
+        padding-top: .75rem;
+        padding-bottom: .75rem;
     }
 
     .logo {
-        width: 40px;
-        height: 40px;
+        width: 2.5rem;
+        height: 2.5rem;
     }
 
     form,
     .content {
-        border-radius: 0 0 8px 8px;
+        border-radius: 0 0 .5rem .5rem;
     }
 
     .input-group {
-        margin: 8px 0;
+        margin: .5rem 0;
     }
 
     .input-group input {
-        height: 44px;
-        padding: 6px 10px;
+        height: 2.75rem;
+        padding: .375rem .625rem;
     }
 
     .button,
     .upload-button {
-        min-height: 44px;
-        margin: 4px 0;
+        min-height: 2.75rem;
+        margin: .25rem 0;
+    }
+
+    .button,
+    .upload-button[type="submit"] {
+        width: 100%;
+        margin: .5rem 0;
     }
 
     .content p {
@@ -259,7 +320,7 @@ form,
 
     .content p a {
         display: inline-block;
-        margin: 10px 0 0;
+        margin: .625rem 0 0;
     }
 
     .content p a[style] {
@@ -268,25 +329,39 @@ form,
     }
 
     .view {
-        padding: 10px 0;
+        padding: .625rem 0;
     }
 
     .table {
-        min-width: 560px;
-        font-size: 14px;
+        min-width: 35rem;
+        font-size: .875rem;
+    }
+
+    .welcome-row {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .logout-link {
+        width: 100%;
+        margin: .5rem 0 0;
+        text-align: center;
+        padding: .625rem;
+        border-radius: .3125rem;
+        background: #E0FFFF;
     }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 25em) {
     .header {
         text-align: left;
     }
 
     .header h2 {
-        padding-top: 5px;
+        padding-top: .3125rem;
     }
 
     .logo {
-        margin-right: 8px;
+        margin-right: .5rem;
     }
 }

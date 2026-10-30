@@ -1,0 +1,7 @@
+.git
+.github
+.env
+.env.*
+mysql_data
+README.md
+deploy.md

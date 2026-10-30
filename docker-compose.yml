@@ -1,0 +1,42 @@
+services:
+  database:
+    image: mysql:latest
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root_password}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-free_file_server}
+      MYSQL_USER: ${MYSQL_USER:-free_file_server}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-free_file_server_password}
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -uroot -p$${MYSQL_ROOT_PASSWORD} --silent"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  application:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    depends_on:
+      database:
+        condition: service_healthy
+    ports:
+      - "${APP_PORT:-8080}:80"
+    environment:
+      DB_HOST: database
+      DB_NAME: ${MYSQL_DATABASE:-free_file_server}
+      DB_USER: ${MYSQL_USER:-free_file_server}
+      DB_PASS: ${MYSQL_PASSWORD:-free_file_server_password}
+      DB_CHARSET: utf8mb4
+      SETUP_PROJECT: "false"
+      ALLOW_REGISTRATION: ${ALLOW_REGISTRATION:-true}
+    volumes:
+      - uploaded_files:/var/www/html/files
+
+volumes:
+  mysql_data:
+  uploaded_files:
